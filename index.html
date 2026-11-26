@@ -272,6 +272,18 @@ html[lang=te] .scroll-cue{letter-spacing:.04em}
 .fab{position:fixed;right:max(16px,calc(50% - 240px + 16px));bottom:18px;z-index:60;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;background:linear-gradient(180deg,#fff0c2,var(--gold) 55%,var(--gold-3));color:var(--maroon);display:grid;place-items:center;box-shadow:0 10px 24px -6px rgba(0,0,0,.5);opacity:0;transform:scale(.6);transition:all .5s cubic-bezier(.2,.9,.3,1.4)}
 .fab.show{opacity:1;transform:none}
 .fab svg{width:22px;height:22px}
+.music{position:fixed;left:max(16px,calc(50% - 240px + 16px));bottom:18px;z-index:60;width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);cursor:pointer;
+  background:radial-gradient(circle at 50% 50%,var(--gold-2) 0 14%,var(--maroon) 15% 100%);color:var(--gold-2);display:grid;place-items:center;
+  box-shadow:0 10px 24px -6px rgba(0,0,0,.5);opacity:0;transform:scale(.6);transition:opacity .5s,transform .5s cubic-bezier(.2,.9,.3,1.4)}
+.music.show{opacity:1;transform:none}
+.music .bars{display:flex;align-items:flex-end;gap:3px;height:18px}
+.music .bars i{width:3px;height:6px;border-radius:2px;background:var(--gold-2)}
+.music.playing .bars i{animation:eq .9s ease-in-out infinite}
+.music.playing .bars i:nth-child(2){animation-delay:-.3s}.music.playing .bars i:nth-child(3){animation-delay:-.6s}.music.playing .bars i:nth-child(4){animation-delay:-.15s}
+.music.playing::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid rgba(212,162,76,.6);animation:ring 1.8s ease-out infinite}
+.music:not(.playing)::before{content:"";position:absolute;width:30px;height:2px;background:var(--gold-2);transform:rotate(-45deg);border-radius:2px}
+@keyframes eq{0%,100%{height:5px}50%{height:18px}}
+@keyframes ring{from{transform:scale(.9);opacity:1}to{transform:scale(1.35);opacity:0}}
 .toast{position:fixed;left:50%;bottom:84px;transform:translate(-50%,20px);opacity:0;z-index:70;background:var(--maroon);color:var(--gold-2);padding:10px 18px;border-radius:999px;font-size:15px;transition:all .4s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
@@ -463,6 +475,8 @@ html[lang=te] .scroll-cue{letter-spacing:.04em}
 <button class="fab" id="shareBtn" aria-label="Share invitation">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
 </button>
+<button class="music" id="musicBtn" aria-label="Play or pause music"><span class="bars"><i></i><i></i><i></i><i></i></span></button>
+<audio id="bgm" src="song/sita-kalyanam.mp3" loop preload="auto"></audio>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -489,9 +503,33 @@ html[lang=te] .scroll-cue{letter-spacing:.04em}
   try { if (localStorage.getItem('invite-lang') === 'en') applyLang('en'); } catch(e){}
 
   /* ---------- intro doors ---------- */
+  /* ---------- music ---------- */
+  const bgm = document.getElementById('bgm'), musicBtn = document.getElementById('musicBtn');
+  let fadeTimer, userPaused = false;
+  function fadeTo(v, ms, done){
+    clearInterval(fadeTimer);
+    const start = bgm.volume, steps = Math.max(1, ms/50); let n = 0;
+    fadeTimer = setInterval(() => { n++; bgm.volume = Math.min(1, Math.max(0, start + (v - start)*n/steps)); if (n >= steps){ clearInterval(fadeTimer); done && done(); } }, 50);
+  }
+  function playMusic(){
+    bgm.volume = 0;
+    const p = bgm.play();
+    if (p && p.then) p.then(() => { musicBtn.classList.add('playing'); fadeTo(.8, 2500); }).catch(() => musicBtn.classList.remove('playing'));
+  }
+  function pauseMusic(){ musicBtn.classList.remove('playing'); fadeTo(0, 400, () => bgm.pause()); }
+  musicBtn.addEventListener('click', () => {
+    if (bgm.paused || !musicBtn.classList.contains('playing')){ userPaused = false; playMusic(); } else { userPaused = true; pauseMusic(); }
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden){ if (!bgm.paused){ clearInterval(fadeTimer); bgm.pause(); musicBtn.classList.remove('playing'); } }
+    else if (!userPaused && !intro.isConnected && bgm.paused) playMusic();
+  });
+
   const intro = document.getElementById('intro');
   function openDoors(){
     if (intro.classList.contains('open')) return;
+    playMusic();
+    musicBtn.classList.add('show');
     intro.classList.add('open');
     document.body.classList.remove('locked');
     burst(90);
