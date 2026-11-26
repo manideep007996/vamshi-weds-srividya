@@ -45,9 +45,11 @@ a{color:inherit}
 .page{
   position:relative;max-width:480px;margin:0 auto;min-height:100vh;
   background:
-    radial-gradient(1200px 600px at 50% -10%,#fffaf0 0%,transparent 60%),
-    repeating-linear-gradient(45deg,rgba(176,125,42,.045) 0 2px,transparent 2px 14px),
-    var(--cream);
+    radial-gradient(900px 500px at 50% 0%,rgba(255,250,236,.95) 0%,transparent 70%),
+    radial-gradient(600px 400px at 100% 60%,rgba(212,162,76,.10),transparent 70%),
+    radial-gradient(600px 400px at 0% 30%,rgba(158,42,43,.06),transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%23b07d2a' stroke-opacity='.13' stroke-width='.8'%3E%3Cpath d='M36 14c6 6 6 14 0 22c-6-8-6-16 0-22z'/%3E%3Cpath d='M36 58c-6-6-6-14 0-22c6 8 6 16 0 22z'/%3E%3Cpath d='M14 36c6-6 14-6 22 0c-8 6-16 6-22 0z'/%3E%3Cpath d='M58 36c-6 6-14 6-22 0c8-6 16-6 22 0z'/%3E%3Ccircle cx='36' cy='36' r='2.5'/%3E%3Ccircle cx='0' cy='0' r='3'/%3E%3Ccircle cx='72' cy='0' r='3'/%3E%3Ccircle cx='0' cy='72' r='3'/%3E%3Ccircle cx='72' cy='72' r='3'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(180deg,#fcf5e8,#f8ecd6 50%,#fbf3e4);
   box-shadow:0 0 60px rgba(0,0,0,.6);overflow:hidden;
 }
 .page::before,.page::after{
@@ -147,16 +149,29 @@ html[lang=en] .te-title b{font-family:"Cinzel Decorative",serif;font-size:28px}
 .divider svg{width:26px;height:26px}
 
 /* hero arch */
-.arch-wrap{position:relative;width:min(300px,76vw);margin:10px auto 0;aspect-ratio:3/4}
+.arch-wrap{position:relative;width:min(290px,72vw);margin:70px auto 0;aspect-ratio:3/4}
 .arch{position:absolute;inset:0;border-radius:999px 999px 18px 18px;overflow:hidden;border:5px solid var(--gold);box-shadow:0 0 0 2px var(--cream),0 0 0 4px var(--maroon-2),var(--shadow)}
 .arch img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;animation:kenburns 18s ease-in-out infinite alternate}
 @keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.12) translateY(1.5%)}}
 .arch-wrap .halo{position:absolute;inset:-26px;border-radius:999px 999px 30px 30px;border:1.5px solid rgba(176,125,42,.5)}
 .arch-wrap .halo::before{content:"";position:absolute;inset:8px;border-radius:inherit;border:1px dashed rgba(176,125,42,.6)}
-.diya{position:absolute;bottom:-8px;width:46px;height:56px}
-.diya.l{left:-38px}.diya.r{right:-38px}
-.flame{transform-origin:50% 100%;animation:flicker .18s ease-in-out infinite alternate}
-@keyframes flicker{from{transform:scaleY(1) skewX(-2deg)}to{transform:scaleY(1.12) skewX(3deg)}}
+/* rotating gold mandala glow behind the arch */
+.arch-wrap::before{content:"";position:absolute;left:50%;top:42%;width:150%;aspect-ratio:1;transform:translate(-50%,-50%);z-index:-1;opacity:.22;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23b07d2a' stroke-width='.8'%3E%3Ccircle cx='100' cy='100' r='98'/%3E%3Ccircle cx='100' cy='100' r='92' stroke-dasharray='2 3'/%3E%3Ccircle cx='100' cy='100' r='70'/%3E%3Cg id='p'%3E%3Cpath d='M100 4 C110 22 110 34 100 48 C90 34 90 22 100 4Z'/%3E%3Cpath d='M100 30 C120 50 120 62 100 70 C80 62 80 50 100 30Z'/%3E%3C/g%3E%3Cuse href='%23p' transform='rotate(22.5 100 100)'/%3E%3Cuse href='%23p' transform='rotate(45 100 100)'/%3E%3Cuse href='%23p' transform='rotate(67.5 100 100)'/%3E%3Cuse href='%23p' transform='rotate(90 100 100)'/%3E%3Cuse href='%23p' transform='rotate(112.5 100 100)'/%3E%3Cuse href='%23p' transform='rotate(135 100 100)'/%3E%3Cuse href='%23p' transform='rotate(157.5 100 100)'/%3E%3Cuse href='%23p' transform='rotate(180 100 100)'/%3E%3Cuse href='%23p' transform='rotate(202.5 100 100)'/%3E%3Cuse href='%23p' transform='rotate(225 100 100)'/%3E%3Cuse href='%23p' transform='rotate(247.5 100 100)'/%3E%3Cuse href='%23p' transform='rotate(270 100 100)'/%3E%3Cuse href='%23p' transform='rotate(292.5 100 100)'/%3E%3Cuse href='%23p' transform='rotate(315 100 100)'/%3E%3Cuse href='%23p' transform='rotate(337.5 100 100)'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+  animation:spinc 70s linear infinite}
+@keyframes spinc{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.arch-wrap{isolation:isolate}
+/* temple crest on top of arch */
+.crest{position:absolute;left:50%;top:-58px;width:120px;height:62px;transform:translateX(-50%);z-index:3;filter:drop-shadow(0 4px 6px rgba(92,15,22,.35))}
+/* hanging jasmine + marigold garlands */
+.mala{position:absolute;top:30%;width:12px;transform-origin:50% 0;animation:malaSway 4s ease-in-out infinite;z-index:2}
+.mala::before{content:"";position:absolute;left:0;top:0;width:12px;height:100%;
+  background:radial-gradient(circle at 50% 50%,#fffef8 0 3.2px,#efe6cf 4px,transparent 4.6px) 0 0/12px 9px repeat-y}
+.mala::after{content:"";position:absolute;left:-3px;bottom:-16px;width:18px;height:18px;border-radius:50%;
+  background:radial-gradient(circle,#ffd25a 0 25%,#f39c12 55%,#d35400 100%);box-shadow:0 0 8px rgba(243,156,18,.55),0 14px 0 -5px #c9184a}
+.mala.l1{left:-22px;height:44%}.mala.l2{left:-38px;height:30%;top:34%;animation-delay:-1.3s}
+.mala.r1{right:-22px;height:44%;animation-delay:-2s}.mala.r2{right:-38px;height:30%;top:34%;animation-delay:-.6s}
+@keyframes malaSway{0%,100%{transform:rotate(3deg)}50%{transform:rotate(-3deg)}}
 
 .names{margin-top:34px}
 .script{font-family:"Great Vibes",cursive;font-size:62px;line-height:1;color:var(--maroon);text-shadow:0 2px 0 rgba(212,162,76,.35)}
@@ -173,6 +188,13 @@ html[lang=en] .te-title b{font-family:"Cinzel Decorative",serif;font-size:28px}
 /* invitation card */
 .card{position:relative;background:linear-gradient(180deg,#fffaf0,#fbefd8);border-radius:14px;padding:30px 22px;border:1.5px solid rgba(176,125,42,.55);box-shadow:var(--shadow)}
 .card::before{content:"";position:absolute;inset:7px;border:1px solid rgba(176,125,42,.35);border-radius:10px;pointer-events:none}
+.card{overflow:hidden;background:
+  radial-gradient(120% 60% at 50% 0%,rgba(255,255,255,.9),transparent 70%),
+  linear-gradient(180deg,#fffaf0,#fbefd8)}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(110deg,transparent 35%,rgba(255,236,180,.65) 50%,transparent 65%) -150% 0/250% 100% no-repeat}
+.card.in::after{animation:gloss 2.4s ease .5s 1 forwards}
+@keyframes gloss{to{background-position:250% 0}}
 .corner{position:absolute;width:38px;height:38px;color:var(--gold-3)}
 .corner.tl{top:4px;left:4px}.corner.tr{top:4px;right:4px;transform:scaleX(-1)}
 .corner.bl{bottom:4px;left:4px;transform:scaleY(-1)}.corner.br{bottom:4px;right:4px;transform:scale(-1,-1)}
@@ -234,6 +256,26 @@ html[lang=en] .te-title b{font-family:"Cinzel Decorative",serif;font-size:28px}
 .friends{margin-top:26px;font-size:17px;line-height:1.7;color:#6b3a2a}
 .friends em{display:block;font-size:15px;letter-spacing:.12em;text-transform:uppercase;font-style:normal;color:var(--gold-3);margin-bottom:6px}
 
+.blessed{font-size:16px;line-height:1.7;color:#6b3a2a;font-style:italic;margin:4px 0 18px;padding-bottom:16px;border-bottom:1px dashed rgba(176,125,42,.5)}
+.blessed b{font-style:normal;font-weight:600;color:var(--maroon-2)}
+.muhurtham .lagnam small{display:block;margin-top:6px;font-size:.85em;font-style:normal;color:rgba(251,243,228,.8)}
+/* little ones' invitation */
+.kids{position:relative;margin:22px auto 0;padding:18px 14px 16px;border-radius:16px;
+  background:linear-gradient(180deg,#fff7ea,#fdebd3);border:1.5px dashed rgba(201,24,74,.35);box-shadow:0 10px 24px -16px rgba(92,15,22,.6)}
+.kids::before{content:"🎈";position:absolute;left:12px;top:-14px;font-size:24px;animation:bob 3s ease-in-out infinite}
+.kids::after{content:"🎈";position:absolute;right:12px;top:-14px;font-size:24px;animation:bob 3s ease-in-out -1.5s infinite;filter:hue-rotate(140deg)}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-6px) rotate(6deg)}}
+.kids-title{font-size:16px;font-weight:600;color:var(--maroon-2);font-style:italic}
+.kid-names{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+.kid-names span{padding:6px 14px;border-radius:999px;background:#fff;border:1px solid rgba(176,125,42,.45);font-size:17px;font-weight:600;color:var(--maroon);
+  box-shadow:0 3px 8px -4px rgba(92,15,22,.35)}
+.kids.in .kid-names span{animation:pop .5s cubic-bezier(.2,.9,.3,1.5) both}
+.kids.in .kid-names span:nth-child(2){animation-delay:.1s}.kids.in .kid-names span:nth-child(3){animation-delay:.2s}.kids.in .kid-names span:nth-child(4){animation-delay:.3s}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+html[lang=te] .blessed,html[lang=te] .kids-title,html[lang=te] .kid-names span{font-family:var(--te);font-style:normal}
+html[lang=te] .blessed{font-size:14px;line-height:1.9}
+html[lang=te] .kids-title{font-size:15px}
+html[lang=te] .kid-names span{font-size:15px}
 footer{position:relative;z-index:2;text-align:center;padding:40px 28px 60px;background:linear-gradient(180deg,transparent,rgba(212,162,76,.18))}
 footer .script{font-size:40px}
 footer p{font-size:16px;color:#6b3a2a;margin-top:6px}
@@ -331,13 +373,6 @@ html[lang=te] .scroll-cue{letter-spacing:.04em}
   <defs>
     <symbol id="corner" viewBox="0 0 40 40"><path d="M2 38 V10 Q2 2 10 2 H38 M8 38 V14 Q8 8 14 8 H38 M14 20 q6 -6 12 0 q-6 6 -12 0z" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="20" cy="20" r="1.8" fill="currentColor"/></symbol>
     <symbol id="lotus" viewBox="0 0 32 32"><g fill="currentColor"><path d="M16 6c3 4 3 9 0 14c-3-5-3-10 0-14z"/><path d="M6 12c5 0 8 4 10 8c-5 0-9-3-10-8z" opacity=".8"/><path d="M26 12c-5 0-8 4-10 8c5 0 9-3 10-8z" opacity=".8"/><rect x="6" y="22" width="20" height="1.5" rx=".75"/></g></symbol>
-    <symbol id="diya" viewBox="0 0 46 56">
-      <path class="flame" d="M23 4 C28 14 30 20 23 28 C16 20 18 14 23 4Z" fill="url(#fl)"/>
-      <path d="M2 34 Q23 30 44 34 Q40 50 23 50 Q6 50 2 34Z" fill="url(#bowl)" stroke="#8a5a14" stroke-width="1"/>
-      <ellipse cx="23" cy="34" rx="21" ry="3.5" fill="#6b3410"/>
-      <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6c8"/><stop offset=".5" stop-color="#ffb81c"/><stop offset="1" stop-color="#e8590c"/></linearGradient>
-      <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3c36b"/><stop offset="1" stop-color="#a8641c"/></linearGradient>
-    </symbol>
   </defs>
 </svg>
 
@@ -353,8 +388,20 @@ html[lang=te] .scroll-cue{letter-spacing:.04em}
     <div class="arch-wrap reveal d3">
       <div class="halo"></div>
       <div class="arch"><img src="images/couple-main.jpg" alt="Vamshi and Srividya"></div>
-      <svg class="diya l"><use href="#diya"/></svg>
-      <svg class="diya r"><use href="#diya"/></svg>
+      <svg class="crest" viewBox="0 0 120 62" aria-hidden="true">
+        <defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0c2"/><stop offset=".5" stop-color="#d4a24c"/><stop offset="1" stop-color="#9a6a1e"/></linearGradient></defs>
+        <g fill="url(#gg)" stroke="#8a5a14" stroke-width=".6">
+          <path d="M60 2c3 5 3 9 0 13c-3-4-3-8 0-13z"/>
+          <path d="M50 22c0-6 4-8 10-8s10 2 10 8c0 3-2 5-4 6H54c-2-1-4-3-4-6z"/>
+          <rect x="47" y="28" width="26" height="4" rx="2"/>
+          <path d="M60 34c14 0 22 6 30 14c8 8 16 9 26 8c-6 5-18 6-28-2c-7-6-14-10-28-10s-21 4-28 10c-10 8-22 7-28 2c10 1 18 0 26-8c8-8 16-14 30-14z"/>
+          <circle cx="60" cy="44" r="5"/><circle cx="60" cy="44" r="2.2" fill="#9e2a2b"/>
+          <circle cx="30" cy="50" r="2.4"/><circle cx="90" cy="50" r="2.4"/>
+          <path d="M60 50c2 4 2 7 0 10c-2-3-2-6 0-10z" fill="#9e2a2b"/>
+        </g>
+      </svg>
+      <span class="mala l1"></span><span class="mala l2"></span>
+      <span class="mala r1"></span><span class="mala r2"></span>
     </div>
 
     <div class="names">
@@ -373,16 +420,17 @@ html[lang=te] .scroll-cue{letter-spacing:.04em}
     <div class="card reveal">
       <svg class="corner tl"><use href="#corner"/></svg><svg class="corner tr"><use href="#corner"/></svg>
       <svg class="corner bl"><use href="#corner"/></svg><svg class="corner br"><use href="#corner"/></svg>
-      <div class="eyebrow" data-en="Wedding Invitation">వివాహ ఆహ్వాన పత్రిక</div>
-      <p class="lead" data-en="We solicit your gracious presence with family &amp; friends on the auspicious occasion of the marriage of">మా కుమారుని వివాహ మహోత్సవమునకు మీరు సకుటుంబ సపరివార సమేతంగా విచ్చేసి, వధూవరులను ఆశీర్వదించవలసినదిగా కోరుచున్నాము.</p>
+      <div class="blessed" data-en="With the divine blessings of<br><b>Late Geekuru Lakshmi – Hanmanthu</b><br>&amp; the blessings of<br><b>Smt Medipelli Bhudevi – (Late Ramulu)</b>"><b>కీ॥శే॥ గీకురు లక్ష్మి – హన్మంతు</b> గార్ల దివ్యాశీస్సులతో...<br><b>శ్రీమతి మేడిపెల్లి భూదేవి – (కీ॥శే॥ రాములు)</b> గార్ల ఆశీస్సులతో...</div>
+      <div class="eyebrow" data-en="Wedding Invitation">వివాహ మహోత్సవ ఆహ్వాన శుభ పత్రిక</div>
+      <p class="lead" data-en="We solicit your gracious presence with family &amp; friends on the auspicious occasion of the marriage of">వేదమూర్తులైన బ్రాహ్మణోత్తములచే నిశ్చయించిన ఈ వివాహ మహోత్సవమునకు తామెల్లరు సకుటుంబ సపరివార సమేతముగా విచ్చేసి, నూతన వధూవరులను ఆశీర్వదించి, మా ఆతిథ్యము స్వీకరించగలరని మనవి.</p>
       <div class="person">
-        <div class="rel" data-en="Our Only Son">మా ఏకైక కుమారుడు</div>
+        <div class="rel" data-en="Our Only Son">మా ఏకైక పుత్రుడు</div>
         <div class="who" data-en="Chi. Vamshi">చి॥ వంశీ</div>
       </div>
       <div class="with" data-en="WITH">తో</div>
       <div class="person">
         <div class="who" data-en="Chi.La.Sow. Srividya">చి॥ల॥సౌ॥ శ్రీవిద్య</div>
-        <div class="rel" data-en="Only Daughter of <b>Smt &amp; Sri Vangapelli Sujatha – Rajaiah</b>"><b>శ్రీమతి &amp; శ్రీ వంగపెల్లి సుజాత – రాజయ్య</b> గార్ల ఏకైక కుమార్తె</div>
+        <div class="rel" data-en="Only Daughter of <b>Smt &amp; Sri Vangapelli Sujatha – Rajaiah</b>">(మా॥రా॥శ్రీ <b>వంగపెల్లి సుజాత – రాజయ్య</b> గార్ల ఏకైక పుత్రిక)</div>
       </div>
     </div>
   </section>
@@ -392,7 +440,7 @@ html[lang=te] .scroll-cue{letter-spacing:.04em}
     <div class="eyebrow reveal" data-en="Sumuhurtham">సుముహూర్తం</div>
     <h2 class="reveal d1" data-en="Save the Date">శుభ ముహూర్తం</h2>
     <p class="when reveal d2" data-en="On <b>Thursday, 03<sup>rd</sup> December 2026</b><br>at <b>09:03 a.m.</b>"><b>03-12-2026 గురువారం</b><br>ఉదయం <b>గం॥ 09:03 ని॥</b> లకు</p>
-    <p class="lagnam reveal d2" data-en="“Uttara Nakshathram, Dhanussu Lagnam”">“ఉత్తర నక్షత్రయుక్త ధనుస్సు లగ్నం”</p>
+    <p class="lagnam reveal d2" data-en="“Uttara Nakshathram, Dhanussu Lagnam”<br><small>Parabhava Nama Samvatsara · Karthika Bahula Dashami</small>">“ఉత్తర నక్షత్రయుక్త ధనుస్సు లగ్న పుష్కరాంశ సుముహూర్తమున”<br><small>స్వస్తిశ్రీ పరాభవ నామ సం॥ర కార్తీక బ॥ దశమి</small></p>
     <div class="countdown reveal d3" id="countdown">
       <div class="cd"><b id="cdD">--</b><small data-en="Days">రోజులు</small></div>
       <div class="cd"><b id="cdH">--</b><small data-en="Hours">గంటలు</small></div>
@@ -427,7 +475,7 @@ html[lang=te] .scroll-cue{letter-spacing:.04em}
       <div class="eyebrow" data-en="Venue">కళ్యాణ వేదిక</div>
       <div class="venue-name" data-en="PVR Plaza Garden">PVR ప్లాజా గార్డెన్</div>
       <div class="venue-addr" data-en="Vill: Laxmipuram, Mdl: Malkapuram,<br>Dist: Karimnagar">గ్రా॥ లక్ష్మీపురం, మం॥ మల్కాపురం,<br>జి॥ కరీంనగర్</div>
-      <div class="lunch" data-en="🍃 Lunch follows">🍃 విందు : ముహూర్తానంతరం</div>
+      <div class="lunch" data-en="🍃 Lunch follows">🍃 విందు : వివాహానంతరము</div>
       <div class="btns">
         <a class="btn" href="https://maps.app.goo.gl/fAujh6ZH7iLCVfw9A" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
@@ -452,12 +500,26 @@ html[lang=te] .scroll-cue{letter-spacing:.04em}
     <div class="divider reveal"><svg><use href="#lotus"/></svg></div>
 
     <div class="label reveal" data-en="Co-Invited By">సహ ఆహ్వానించువారు</div>
-    <div class="name reveal d1" data-en="Smt &amp; Sri Anadi Anusha – Srinivas Reddy">శ్రీమతి &amp; శ్రీ అనాది అనూష – శ్రీనివాస్ రెడ్డి</div>
+    <div class="name reveal d1" data-en="Smt &amp; Sri Annadi Anusha – Srinivas Reddy">శ్రీమతి &amp; శ్రీ అన్నాడి అనూష – శ్రీనివాస్ రెడ్డి</div>
 
+    <div class="divider reveal"><svg><use href="#lotus"/></svg></div>
     <div class="friends reveal">
-      <em data-en="With best compliments from">శుభాభినందనలతో</em>
-      <span data-en="Near &amp; Dear">బంధుమిత్రులు</span>
+      <em data-en="With best compliments from Near &amp; Dear">బంధు-మిత్రుల అభినందనలతో...</em>
     </div>
+
+    <div class="kids reveal">
+      <div class="kids-title" data-en="Please come to our Mamayya's wedding">మా మామయ్య పెండ్లికి తప్పక రాగలరు</div>
+      <div class="kid-names">
+        <span data-en="Sathvik">సాత్విక్</span><span data-en="Himansh">హిమాన్ష్</span><span data-en="Vidhula">విధుల</span><span data-en="Adwik">అద్విక్</span>
+      </div>
+    </div>
+    <div class="kids reveal d1">
+      <div class="kids-title" data-en="Please come to our Babai's wedding">మా బాబాయి పెండ్లికి తప్పక రాగలరు</div>
+      <div class="kid-names">
+        <span data-en="Sirivedansh">సిరివేదాన్ష్</span><span data-en="Dakshith">దక్షిత్</span>
+      </div>
+    </div>
+
     <div class="friends reveal">
       <em data-en="Please attend my friend's marriage">మా మిత్రుని పెళ్ళికి తప్పక రండి</em>
       <span data-en="Jhansi Rani, Purnima, Pragna, Mani, Praveen,<br>Sairam, Krishna, Chandu, Naveen…">ఝాన్సీ రాణి, పూర్ణిమ, ప్రజ్ఞ, మణి, ప్రవీణ్,<br>సాయిరామ్, కృష్ణ, చందు, నవీన్…</span>
@@ -564,8 +626,20 @@ html[lang=te] .scroll-cue{letter-spacing:.04em}
     ctx.moveTo(0,-p.r); ctx.bezierCurveTo(p.r*.9,-p.r*.6,p.r*.7,p.r*.7,0,p.r); ctx.bezierCurveTo(-p.r*.7,p.r*.7,-p.r*.9,-p.r*.6,0,-p.r); ctx.fill();
     ctx.globalAlpha = .3; ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.ellipse(-p.r*.2,-p.r*.2,p.r*.18,p.r*.5,0,0,7); ctx.fill(); ctx.restore();
   }
+  const sparks = Array.from({length: innerWidth < 600 ? 18 : 28}, () => ({x:Math.random(), y:Math.random(), r:Math.random()*1.6+.6, t:Math.random()*6.28, s:Math.random()*.03+.015}));
+  function drawSparks(){
+    sparks.forEach(k => {
+      k.t += k.s; k.y -= .0004; if (k.y < 0) { k.y = 1; k.x = Math.random(); }
+      const a = Math.max(0, Math.sin(k.t)); if (a < .05) return;
+      const x = k.x*W, y = k.y*H, r = k.r*(1 + a);
+      ctx.save(); ctx.globalAlpha = a*.85; ctx.fillStyle = '#f3d48b'; ctx.shadowColor = '#ffd86b'; ctx.shadowBlur = 8;
+      ctx.beginPath(); ctx.moveTo(x, y - r*3); ctx.quadraticCurveTo(x, y, x + r*3, y); ctx.quadraticCurveTo(x, y, x, y + r*3);
+      ctx.quadraticCurveTo(x, y, x - r*3, y); ctx.quadraticCurveTo(x, y, x, y - r*3); ctx.fill(); ctx.restore();
+    });
+  }
   function loop(){
     ctx.clearRect(0,0,W,H);
+    drawSparks();
     if (petals.filter(p=>!p.burst).length < ambientMax && Math.random() < .08) petals.push(mk(false));
     petals.forEach(p => {
       p.sway += .03;
